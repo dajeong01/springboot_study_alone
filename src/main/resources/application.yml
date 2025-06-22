@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/auth_study_db
+        username: root
+        password: 1q2w3e4r
+
+jpa:
+    hibernate:
+        ddl-auto: none
+    show-sql: false
+    properties:
+        hibernate:
+            format_sql: true
+
+mybatis:
+    mapper-locations: classpath:mapper/**/*.xml
+    configuration:
+        map-underscore-to-camel-case: true
+    type-aliases-package: com.korit.authstudy.mapper.dto
+
+jwt:
+    secret: 767d33e857b6f8aec36ce7c577cd001b0266c176bf7581d1f70205d7c890a90a
