@@ -1,6 +1,8 @@
 package org.example.springboot_study_alone.security.filter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.swagger.v3.oas.models.PathItem;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.example.springboot_study_alone.domain.entity.User;
 import org.example.springboot_study_alone.repository.UsersRepository;
 import org.example.springboot_study_alone.security.jwt.JwtUtil;
 import org.example.springboot_study_alone.security.model.PrincipalUser;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Component
 @RequiredArgsConstructor
@@ -54,7 +58,7 @@ public class JwtAuthenticationFilter implements Filter {
                     Authentication authentication = new UsernamePasswordAuthenticationToken(
                             principalUser,
                             "",
-                            PrincipalUser.getAuthorities());
+                            principalUser.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     System.out.println("인증성공");
                     System.out.println(authentication.getName());

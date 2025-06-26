@@ -1,7 +1,6 @@
 package org.example.springboot_study_alone.config;
 
-import com.korit.authstudy.filter.StudyFilter;
-import com.korit.authstudy.security.filter.JwtAuthenticationFilter;
+
 import lombok.RequiredArgsConstructor;
 import org.example.springboot_study_alone.security.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +18,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final StudyFilter studyFilter;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -30,23 +28,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-
         // React 개발 서버 주소 허용
         corsConfiguration.addAllowedOriginPattern(CorsConfiguration.ALL);
-
         // 자바스크립트 fetch, axios 등 요청에서 사용할 수 있는 헤더 허용
         corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
-
         // GET, POST, PUT, DELETE 등 모든 HTTP 메서드 허용
         corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, org.example.springboot_study_alone.security.filter.JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults());               // 위에 만든 cors 설정(bean) securty에 적용
         http.csrf(csrf -> csrf.disable());                  // 서버사이드 렌더링 로그인 방식 비활성화
         http.formLogin(formLogin -> formLogin.disable());   // 서버사이드 렌더링 로그인 방식 비활성화

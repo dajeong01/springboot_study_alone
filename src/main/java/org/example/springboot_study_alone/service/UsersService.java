@@ -1,7 +1,5 @@
 package org.example.springboot_study_alone.service;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.example.springboot_study_alone.domain.entity.User;
 import org.example.springboot_study_alone.dto.JwtDto;
